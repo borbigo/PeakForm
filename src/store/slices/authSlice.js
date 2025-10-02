@@ -1,7 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import authService from '../../services/authService';
-import { register } from 'react-native/types_generated/Libraries/Renderer/shims/ReactNativeViewConfigRegistry';
 
 // async thunks
 export const loginUser = createAsyncThunk(
@@ -73,7 +72,7 @@ const authSlice = createSlice({
         state.user = action.payload.user;
         state.token = action.payload.token;
       })
-      /addCase(loginUser.rejected, (state, action) => {
+      .addCase(loginUser.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
       })
