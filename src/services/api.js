@@ -2,10 +2,10 @@ import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 //change to actual backend later
-const API_URL = __DEV__ ? 'http://localhost:3000/api' : 'https://your-production-url.com/api';
+const API_URL = __DEV__ ? 'http://192.168.1.7:3000/api' : 'https://your-production-url.com/api';
 
 const api = axios.create({
-  baseUrl: API_URL,
+  baseURL: API_URL,
   headers: {
     'Content-Type': 'application/json',
   },
