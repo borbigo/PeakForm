@@ -17,9 +17,12 @@ export const createWorkout = createAsyncThunk(
   'workouts/create',
   async (workoutData, { rejectWithValue }) => {
     try {
+      console.log('Creating workout with data:', workoutData);
       const response = await workoutService.createWorkout(workoutData);
-      return response.data;
+      console.log('Create workout service response:', response);
+      return response;
     } catch (error) {
+      console.error('Create workout error:', error);
       return rejectWithValue(error.response?.data?.message || 'Failed to create workout');
     }
   }
@@ -63,7 +66,13 @@ const workoutSlice = createSlice({
         state.error = action.payload;
       })
       .addCase(createWorkout.fulfilled, (state, action) => {
-        state.workouts.unshift(action.payload);
+        console.log('createWorkout.fulfilled payload:', action.payload);
+        // Use push or unshift - make sure workouts is an array
+        if (Array.isArray(state.workouts)) {
+          state.workouts.unshift(action.payload);
+        } else {
+          state.workouts = [action.payload];
+        }
       })
       .addCase(deleteWorkout.fulfilled, (state, action) => {
         state.workouts = state.workouts.filter(w => w.id !== action.payload);

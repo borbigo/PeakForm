@@ -5,13 +5,25 @@ import authService from '../../services/authService';
 // async thunks
 export const loginUser = createAsyncThunk(
   'auth/login',
-  async({ email, password }, { rejectWithValue }) => {
+  async ({ email, password }, { rejectWithValue }) => {
     try {
+      console.log('=== LOGIN ATTEMPT ===');
+      console.log('Email:', email);
+      console.log('authService object:', authService);
+      console.log('authService.login type:', typeof authService.login);
+      console.log('Calling authService.login...');
+      
       const response = await authService.login(email, password);
+      
+      console.log('Login response received:', response);
       await AsyncStorage.setItem('token', response.token);
       await AsyncStorage.setItem('user', JSON.stringify(response.user));
       return response;
     } catch (error) {
+      console.error('=== LOGIN ERROR ===');
+      console.error('Error object:', error);
+      console.error('Error response:', error.response);
+      console.error('Error message:', error.message);
       return rejectWithValue(error.response?.data?.message || 'Login failed');
     }
   }
@@ -19,7 +31,7 @@ export const loginUser = createAsyncThunk(
 
 export const registerUser = createAsyncThunk(
   'auth/register',
-  async({ name, email, password }, { rejectWithValue }) => {
+  async ({ name, email, password }, { rejectWithValue }) => {
     try {
       const response = await authService.register(name, email, password);
       await AsyncStorage.setItem('token', response.token);

@@ -11,6 +11,7 @@ import HomeScreen from '../screens/HomeScreen';
 import WorkoutsScreen from '../screens/WorkoutsScreen';
 import SocialScreen from '../screens/SocialScreen';
 import ProfileScreen from '../screens/ProfileScreen';
+import AddWorkoutScreen from '../screens/AddWorkoutScreen';
 
 import { loadStoredAuth } from '../store/slices/authSlice';
 
@@ -27,7 +28,7 @@ function MainTabs() {
 
           if (route.name === 'Home') {
             iconName = focused ? 'home' : 'home-outline';
-          } else if (route.name === 'Workouts') {
+          } else if (route.name === 'WorkoutsTab') {
             iconName = focused ? 'fitness' : 'fitness-outline';
           } else if (route.name === 'Social') {
             iconName = focused ? 'people' : 'people-outline';
@@ -43,11 +44,33 @@ function MainTabs() {
       })}
     >
       <Tab.Screen name="Home" component={HomeScreen} />
-      <Tab.Screen name="Workouts" component={WorkoutsScreen} />
+      <Tab.Screen 
+        name="WorkoutsTab" 
+        component={WorkoutsStack} 
+        options={{ title: 'Workouts' }}
+      />
       <Tab.Screen name="Social" component={SocialScreen} />
       <Tab.Screen name="Profile" component={ProfileScreen} />
     </Tab.Navigator>
   );
+}
+
+//workout stack navigator (add workout screen)
+function WorkoutsStack() {
+  return (
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
+      <Stack.Screen 
+        name="WorkoutsList" 
+        component={WorkoutsScreen} 
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen 
+        name="AddWorkout" 
+        component={AddWorkoutScreen} 
+        options={{ headerShown: false }}
+      />
+    </Stack.Navigator>
+  )
 }
 
 //auth stack (login/register)

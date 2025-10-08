@@ -1,7 +1,8 @@
 import api from './api';
 
 const authService = {
-  login: async (eachMonthOfInterval, password) => {
+  login: async (email, password) => {
+    console.log('authService.login called with: ', email, password);
     const response = await api.post('/auth/login', { email, password });
     return response.data;
   },

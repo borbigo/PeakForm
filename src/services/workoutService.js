@@ -2,15 +2,18 @@ import api from './api';
 
 const workoutService = {
   getWorkouts: async () => {
-    return await api.get('/workouts');
+    const response = await api.get('/workouts');
+    return response.data;
   },
 
   createWorkout: async (workoutData) => {
-    return await api.post('/workouts', workoutData);
+    const response = await api.post('/workouts', workoutData);
+    return response.data;
   },
 
   updateWorkout: async (id, workoutData) => {
-    return await api.put(`/workouts/${id}`, workoutData);
+    const response = await api.put(`/workouts/${id}`, workoutData);
+    return response.data;
   },
 
   deleteWorkout: async (id) => {
@@ -18,7 +21,8 @@ const workoutService = {
   },
 
   getWorkoutById: async (id) => {
-    return await api.get(`/workouts/${id}`);
+    const response = await api.get(`/workouts/${id}`);
+    return response.data;
   },
 };
 
