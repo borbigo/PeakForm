@@ -68,7 +68,7 @@ export default function WorkoutsScreen({ navigation }) {
             )}
             {item.distance && (
               <Text key={`${item.id}-distance`} variant="bodySmall" style={styles.metric}>
-                📏 {item.distance} km
+                📏 {item.distance} mi
               </Text>
             )}
             {item.elevation && (

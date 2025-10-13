@@ -149,13 +149,13 @@ export default function AddWorkoutScreen({ navigation }) {
           />
 
           <TextInput
-            label="Distance (km)"
+            label="Distance (mi)"
             value={distance}
             onChangeText={setDistance}
             mode="outlined"
             keyboardType="decimal-pad"
             style={styles.input}
-            placeholder="10.5"
+            placeholder="6.5"
           />
 
           <TextInput
