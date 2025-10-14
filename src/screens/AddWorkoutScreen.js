@@ -49,6 +49,17 @@ export default function AddWorkoutScreen({ navigation }) {
 
     try { 
       await dispatch(createWorkout(workoutData)).unwrap();
+      // Clear form after successful save
+      setWorkoutType('run');
+      setTitle('');
+      setDescription('');
+      setDate(new Date());
+      setDuration('');
+      setDistance('');
+      setElevation('');
+      setAvgHeartRate('');
+      setCalories('');
+      setCompleted('completed');
       navigation.goBack();
     } catch (error) {
       alert('Failed to create workout: ' + error);
@@ -64,7 +75,7 @@ export default function AddWorkoutScreen({ navigation }) {
 
   return (
     <KeyboardAvoidingView
-      behavior={Platform.Os === 'ios' ? 'padding' : 'height'}
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       style={styles.container}  
     >
       <ScrollView style={styles.scrollView}>

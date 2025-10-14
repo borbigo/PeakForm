@@ -12,6 +12,7 @@ import WorkoutsScreen from '../screens/WorkoutsScreen';
 import SocialScreen from '../screens/SocialScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 import AddWorkoutScreen from '../screens/AddWorkoutScreen';
+import CalendarScreen from '../screens/CalendarScreen';
 
 import { loadStoredAuth } from '../store/slices/authSlice';
 
@@ -30,6 +31,8 @@ function MainTabs() {
             iconName = focused ? 'home' : 'home-outline';
           } else if (route.name === 'WorkoutsTab') {
             iconName = focused ? 'fitness' : 'fitness-outline';
+          } else if (route.name === 'Calendar') {
+            iconName = focused ? 'calendar' : 'calendar-outline';
           } else if (route.name === 'Social') {
             iconName = focused ? 'people' : 'people-outline';
           } else if (route.name === 'Profile') {
@@ -49,6 +52,7 @@ function MainTabs() {
         component={WorkoutsStack} 
         options={{ title: 'Workouts' }}
       />
+      <Tab.Screen name="Calendar" component={CalendarScreen} />
       <Tab.Screen name="Social" component={SocialScreen} />
       <Tab.Screen name="Profile" component={ProfileScreen} />
     </Tab.Navigator>
