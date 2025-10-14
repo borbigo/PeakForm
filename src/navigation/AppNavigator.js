@@ -13,6 +13,7 @@ import SocialScreen from '../screens/SocialScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 import AddWorkoutScreen from '../screens/AddWorkoutScreen';
 import CalendarScreen from '../screens/CalendarScreen';
+import EditWorkoutScreen from '../screens/EditWorkoutScreen';
 
 import { loadStoredAuth } from '../store/slices/authSlice';
 
@@ -71,6 +72,11 @@ function WorkoutsStack() {
       <Stack.Screen 
         name="AddWorkout" 
         component={AddWorkoutScreen} 
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen 
+        name="EditWorkout"
+        component={EditWorkoutScreen}
         options={{ headerShown: false }}
       />
     </Stack.Navigator>

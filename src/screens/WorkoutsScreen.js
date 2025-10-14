@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { View, StyleSheet, FlatList, RefreshControl } from 'react-native';
+import { View, StyleSheet, FlatList, RefreshControl, TouchableOpacity } from 'react-native';
 import { Text, FAB, Card, Chip } from 'react-native-paper';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchWorkouts } from '../store/slices/workoutSlice';
@@ -30,60 +30,62 @@ export default function WorkoutsScreen({ navigation }) {
     }
     
     return (
-      <Card style={styles.card}>
-        <Card.Content>
-          <View style={styles.cardHeader}>
-            <Text variant="titleMedium" style={styles.title}>
-              {item.title}
+      <TouchableOpacity onPress={() => navigation.navigate('EditWorkout', { workout: item })}>
+        <Card style={styles.card}>
+          <Card.Content>
+            <View style={styles.cardHeader}>
+              <Text variant="titleMedium" style={styles.title}>
+                {item.title}
+              </Text>
+              <Chip
+                mode="outlined"
+                style={item.completed ? styles.completedChip : styles.plannedChip}
+              >
+                {item.completed ? 'Completed' : 'Planned'}
+              </Chip>
+            </View>
+            
+            <Text variant="bodySmall" style={styles.date}>
+              {format(workoutDate, 'MMM dd, yyyy')}
             </Text>
-            <Chip
-              mode="outlined"
-              style={item.completed ? styles.completedChip : styles.plannedChip}
-            >
-              {item.completed ? 'Completed' : 'Planned'}
-            </Chip>
-          </View>
-          
-          <Text variant="bodySmall" style={styles.date}>
-            {format(workoutDate, 'MMM dd, yyyy')}
-          </Text>
-          
-          <View style={styles.typeContainer}>
-            <Chip icon="run" compact>
-              {item.type}
-            </Chip>
-          </View>
+            
+            <View style={styles.typeContainer}>
+              <Chip icon="run" compact>
+                {item.type}
+              </Chip>
+            </View>
 
-          {item.description && (
-            <Text variant="bodyMedium" style={styles.description}>
-              {item.description}
-            </Text>
-          )}
+            {item.description && (
+              <Text variant="bodyMedium" style={styles.description}>
+                {item.description}
+              </Text>
+            )}
 
-          <View style={styles.metrics}>
-            {item.duration && (
-              <Text key={`${item.id}-duration`} variant="bodySmall" style={styles.metric}>
-                ⏱️ {item.duration} min
-              </Text>
-            )}
-            {item.distance && (
-              <Text key={`${item.id}-distance`} variant="bodySmall" style={styles.metric}>
-                📏 {item.distance} mi
-              </Text>
-            )}
-            {item.elevation && (
-              <Text key={`${item.id}-elevation`} variant="bodySmall" style={styles.metric}>
-                ⛰️ {item.elevation} m
-              </Text>
-            )}
-            {item.avgHeartRate && (
-              <Text kkey={`${item.id}-heartrate`} variant="bodySmall" style={styles.metric}>
-                ❤️ {item.avgHeartRate} bpm
-              </Text>
-            )}
-          </View>
-        </Card.Content>
-      </Card>
+            <View style={styles.metrics}>
+              {item.duration && (
+                <Text key={`${item.id}-duration`} variant="bodySmall" style={styles.metric}>
+                  ⏱️ {item.duration} min
+                </Text>
+              )}
+              {item.distance && (
+                <Text key={`${item.id}-distance`} variant="bodySmall" style={styles.metric}>
+                  📏 {item.distance} mi
+                </Text>
+              )}
+              {item.elevation && (
+                <Text key={`${item.id}-elevation`} variant="bodySmall" style={styles.metric}>
+                  ⛰️ {item.elevation} m
+                </Text>
+              )}
+              {item.avgHeartRate && (
+                <Text kkey={`${item.id}-heartrate`} variant="bodySmall" style={styles.metric}>
+                  ❤️ {item.avgHeartRate} bpm
+                </Text>
+              )}
+            </View>
+          </Card.Content>
+        </Card>
+      </TouchableOpacity>
     );
   };
 

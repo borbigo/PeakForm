@@ -40,6 +40,21 @@ export const deleteWorkout = createAsyncThunk(
   }
 );
 
+export const updateWorkout = createAsyncThunk(
+  'workouts/update',
+  async ({ id, workoutData }, { rejectWithValue }) => {
+    try {
+      console.log('Updating workout:', id, workoutData);
+      const response = await workoutService.updateWorkout(id, workoutData);
+      console.log('Update response:', response);
+      return response;
+    } catch (error) {
+      console.error('Update error:', error);
+      return rejectWithValue(error.response?.data?.message || 'Failed to update workout');
+    }
+  }
+);
+
 const workoutSlice = createSlice({
   name: 'workouts',
   initialState: {
@@ -76,7 +91,14 @@ const workoutSlice = createSlice({
       })
       .addCase(deleteWorkout.fulfilled, (state, action) => {
         state.workouts = state.workouts.filter(w => w.id !== action.payload);
-      });
+      })
+      .addCase(updateWorkout.fulfilled, (state, action) => {
+        console.log('updateWorkout.fulfilled payload:', action.payload);
+        const index = state.workouts.findIndex(w => w.id === action.payload.id);
+        if (index !== -1) {
+          state.workouts[index] = action.payload;
+        }
+      })
   },
 });
 

@@ -13,7 +13,8 @@ const workoutService = {
 
   updateWorkout: async (id, workoutData) => {
     const response = await api.put(`/workouts/${id}`, workoutData);
-    return response.data;
+    console.log('Service update response: ', response.data);
+    return response.data.data || response.data;
   },
 
   deleteWorkout: async (id) => {
